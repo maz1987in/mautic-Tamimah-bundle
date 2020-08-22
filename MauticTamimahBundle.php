@@ -9,13 +9,13 @@
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticPlivoBundle;
+namespace MauticPlugin\MauticTamimahBundle;
 
 use Mautic\PluginBundle\Bundle\PluginBundleBase;
 
 /**
- * Class MauticPlivoBundle.
+ * Class MauticTamimahBundle.
  */
-class MauticPlivoBundle extends PluginBundleBase
+class MauticTamimahBundle extends PluginBundleBase
 {
 }

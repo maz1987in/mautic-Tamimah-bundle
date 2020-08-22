@@ -10,9 +10,9 @@
  */
 
 return [
-    'name'        => 'Plivo',
-    'description' => 'Plivo Sms integration',
-    'author'      => 'mtcextendee.com',
+    'name'        => 'Tamimah',
+    'description' => 'Tamimah Sms integration',
+    'author'      => 'mazad.om',
     'version'     => '1.0.0',
     'services' => [
         'events'  => [],
@@ -20,8 +20,8 @@ return [
         ],
         'helpers' => [],
         'other'   => [
-            'mautic.sms.transport.plivo' => [
-                'class'     => \MauticPlugin\MauticPlivoBundle\Services\PlivoApi::class,
+            'mautic.sms.transport.tamimah' => [
+                'class'     => \MauticPlugin\MauticTamimahBundle\Services\TamimahApi::class,
                 'arguments' => [
                     'mautic.page.model.trackable',
                     'mautic.helper.phone_number',
@@ -29,17 +29,17 @@ return [
                     'monolog.logger.mautic',
                     'mautic.http.connector'
                 ],
-                'alias' => 'mautic.sms.config.transport.plivo',
+                'alias' => 'mautic.sms.config.transport.tamimah',
                 'tag'          => 'mautic.sms_transport',
                 'tagArguments' => [
-                    'integrationAlias' => 'Plivo',
+                    'integrationAlias' => 'tamimah',
                 ],
             ],
         ],
         'models'       => [],
         'integrations' => [
-            'mautic.integration.plivo' => [
-                'class' => \MauticPlugin\MauticPlivoBundle\Integration\PlivoIntegration::class,
+            'mautic.integration.tamimah' => [
+                'class' => \MauticPlugin\MauticTamimahBundle\Integration\TamimahIntegration::class,
             ],
         ],
     ],

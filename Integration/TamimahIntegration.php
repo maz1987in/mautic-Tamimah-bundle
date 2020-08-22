@@ -10,16 +10,16 @@
  * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace MauticPlugin\MauticPlivoBundle\Integration;
+namespace MauticPlugin\MauticTamimahBundle\Integration;
 
 use Mautic\PluginBundle\Integration\AbstractIntegration;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * Class PlivoIntegration.
+ * Class TamimahIntegration.
  */
-class PlivoIntegration extends AbstractIntegration
+class TamimahIntegration extends AbstractIntegration
 {
     /**
      * {@inheritdoc}
@@ -28,12 +28,12 @@ class PlivoIntegration extends AbstractIntegration
      */
     public function getName()
     {
-        return 'Plivo';
+        return 'Tamimah';
     }
 
     public function getIcon()
     {
-        return 'plugins/MauticPlivoBundle/Assets/img/plivo.png';
+        return 'plugins/MauticTamimahBundle/Assets/img/tamimah.png';
     }
 
     public function getSecretKeys()
@@ -49,9 +49,11 @@ class PlivoIntegration extends AbstractIntegration
     public function getRequiredKeyFields()
     {
         return [
-            'AUTH_ID'  => 'mautic.plugin.plivo.auth_id',
-            'AUTH_TOKEN' => 'mautic.plugin.plivo.auth_token',
-            'sender_phone_number' => 'mautic.plugin.plivo.sender.phone_number',
+            'UserName'  => 'mautic.plugin.tamimah.UserName',
+            'Password' => 'mautic.plugin.tamimah.Password',
+            'Sender' => 'mautic.plugin.tamimah.sender.phone_number',
+            'AppID' => 'mautic.plugin.tamimah.AppID',
+            'SourceRef' => 'mautic.plugin.tamimah.SourceRef'
         ];
     }
 

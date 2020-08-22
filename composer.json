@@ -1,8 +1,7 @@
 {
-  "name": "mtcextendee/mautic-plivo-bundle",
+  "name": "maz1987in/mautic-tamimah-bundle",
   "type": "mautic-plugin",
   "require": {
-    "mautic/composer-plugin": "^1.0",
-    "plivo/php-sdk": "^4.1.5"
+    "mautic/composer-plugin": "^1.0"
   }
 }

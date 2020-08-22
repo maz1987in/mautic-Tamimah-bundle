@@ -9,7 +9,7 @@
  * @author      Jan Kozak <galvani78@gmail.com>
  */
 
-namespace MauticPlugin\MauticPlivoBundle\Services;
+namespace MauticPlugin\MauticTamimahBundle\Services;
 
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberFormat;
@@ -23,10 +23,8 @@ use Mautic\PageBundle\Model\TrackableModel;
 use Mautic\PluginBundle\Helper\IntegrationHelper;
 use Mautic\SmsBundle\Api\AbstractSmsApi;
 use Monolog\Logger;
-use Plivo\Exceptions\PlivoRestException;
-use Plivo\RestClient;
 
-class PlivoApi extends AbstractSmsApi
+class TamimahApi extends AbstractSmsApi
 {
     /**
      * @var Client
@@ -84,10 +82,12 @@ class PlivoApi extends AbstractSmsApi
             return false;
         }
 
-        $integration = $this->integrationHelper->getIntegrationObject('Plivo');
+        $integration = $this->integrationHelper->getIntegrationObject('Tamimah');
         if ($integration && $integration->getIntegrationSettings()->getIsPublished()) {
             $data   = $integration->getDecryptedApiKeys();
-            $client = new RestClient($data['AUTH_ID'], $data['AUTH_TOKEN']);
+            $client = new Client([
+                'base_uri' => 'https://tamimahsms.com',
+              ]);
             
             try {
                 $number = $this->sanitizeNumber($contact->getLeadPhoneNumber());
@@ -96,14 +96,22 @@ class PlivoApi extends AbstractSmsApi
             }
             
             try {
-                $response = $client->messages->create(
-                    $data['sender_phone_number'],
-                    [$number],
-                    $content
-                );
+                $options = [
+                    'json' => [
+                        "UserName" => $data['UserName'],
+                        "Password" => $data['Password'],
+                        "Sender" => $data['Sender'],
+                        "AppID" => $data['AppID'],
+                        "SourceRef" => $data['SourceRef'],
+                        "MSISDNs" => $number,
+                        "Message" => $content,
+                       ]
+                   ]; 
+
+                $response = $client->post("/API/sendsms", $options);
 
                 return true;
-            } catch (PlivoRestException $ex) {
+            } catch (RestException $ex) {
                 if (method_exists($ex, 'getErrorMessage')) {
                     return $ex->getErrorMessage();
                 } elseif (!empty($ex->getMessage())) {
@@ -125,8 +133,8 @@ class PlivoApi extends AbstractSmsApi
     private function sanitizeNumber($number)
     {
         $util = PhoneNumberUtil::getInstance();
-        $parsed = $util->parse($number, 'US');
+        $parsed = $util->parse($number, 'OM');
 
-        return $util->format($parsed, PhoneNumberFormat::E164);
+        return $util->format($parsed, PhoneNumberFormat::NATIONAL);
     }
 }
